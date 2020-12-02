@@ -1,12 +1,16 @@
+const fsPromises = require('fs').promises;
 const { copyReadme } = require('./sandbox');
 
 
 describe('copy read function', () => {
-    it('copy and read from README file', () => {
-        const copied = 
-        const result = copyReadme(copied)
+    afterEach(() => {
+        return fsPromises.rm('./READMEASWELL.md')
+    })
+    it('copy and read from README file', async () => {
+        await copyReadme('./README.md', './READMEASWELL.md');
+        const result = await fsPromises.readFile('./READMEASWELL.md', 'utf-8')
 
         expect(result)
-            .toEqual()
+            .toEqual('hey dan!');
     })
 })
