@@ -1,3 +1,5 @@
+const fsPromises = require('fs').promises;
+const { getCharacter } = require('./rickAndMortyApi');
 
 describe('get a character', () => {
     const expected = {
@@ -5,12 +7,8 @@ describe('get a character', () => {
         status: "Alive",
         species: "Human",
     };
-    it('gets a single character', () => {
-        const result = {
-            name: "Rick Sanchez",
-            status: "Alive",
-            species: "Human",
-        }
+    it('gets a single character', async () => {
+        const result = await getCharacter(1)
         expect(expected)
             .toEqual(result)
     })
