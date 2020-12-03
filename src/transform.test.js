@@ -3,14 +3,24 @@ const { transformFunction } = require('./transform.js');
 
 
 describe('transform function', () => {
-    // afterEach(() => {
-    //     return fsPromises.rm('./READMEASWELL.md')
+
+    // it('transform the string', async () => {
+    //     const result = await transformFunction('./README.md')
+
+    //     expect(result)
+    //         .toEqual('dandandan');
     // })
-    it('transform the string', async () => {
-        // await transformFunction('./README.md')
+    // it('capitalizes all letters', async () => {
+    //     const result = await transformFunction('./README.md')
+
+    //     expect(result)
+    //         .toEqual('DANDANDAN')
+    // })
+    it('reverses string', async () => {
         const result = await transformFunction('./README.md')
 
         expect(result)
-            .toEqual('dandandan');
+            .toEqual('NADNADNAD')
     })
 })
+
