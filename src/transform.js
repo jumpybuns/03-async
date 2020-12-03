@@ -7,8 +7,8 @@ const transformFunction = (src) => {
             .replace(/[^a-z]/g, ''))
         .then(data => data
             .toUpperCase())
-        .then(data => data.split('')
-            .reverse().join(''))
+        .then(data => data
+            .split('').reverse().join(''))
 
 };
 
