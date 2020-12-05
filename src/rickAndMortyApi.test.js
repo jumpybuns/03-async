@@ -1,15 +1,22 @@
 const fsPromises = require('fs').promises;
 const { getCharacter } = require('./rickAndMortyApi');
+const mockSingleResponse = require('./api-results-single.json');
+const { default: fetch } = require('node-fetch');
+
+jest.mock('node-fetch');
 
 describe('get a character', () => {
-    const expected = {
-        name: "Rick Sanchez",
-        status: "Alive",
-        species: "Human",
-    };
     it('gets a single character', async () => {
-        const result = await getCharacter(1)
-        expect(expected)
-            .toEqual(result)
+        fetch.mockResolvedValue({
+            json: () => Promise.resolve(mockSingleResponse)
+        });
+        const result = await getCharacter(2)
+        expect(result)
+            .toEqual({
+                name: "Morty Smith",
+                status: "Alive",
+                species: "Human"
+            });
     })
 })
+

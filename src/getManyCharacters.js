@@ -1,7 +1,9 @@
 const fetch = require('node-fetch');
+const { getCharacter } = require('./rickAndMortyApi');
 
-function getCharacter(id) {
-    return fetch(`https://rickandmortyapi.com/api/character/${id}`)
+const getManyCharacters = async (ids) => {
+    const object = await Promise.all(ids.map(id => getCharacter(id)));
+    return object
         .then(res => res.json())
         .then(character => {
             return {
@@ -14,5 +16,6 @@ function getCharacter(id) {
 
 }
 module.exports = {
+
     getManyCharacters
 }
