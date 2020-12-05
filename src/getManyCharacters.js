@@ -1,12 +1,18 @@
 const fetch = require('node-fetch');
 
-const getManyCharacters = (src) => {
-    Promise.all([
-        fetch('https://rickandmortyapi.com/api/character/')
-    ])
-        .then((data => fsPromisies.readFile(src, data)[resRickAndMorty]));
-};
+function getCharacter(id) {
+    return fetch(`https://rickandmortyapi.com/api/character/${id}`)
+        .then(res => res.json())
+        .then(character => {
+            return {
+                name: character.name,
+                status: character.status,
+                species: character.species
+            }
+        }
+        )
 
+}
 module.exports = {
     getManyCharacters
 }
