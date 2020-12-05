@@ -1,31 +1,36 @@
-const fetch = require('node-fetch');
-const { getManyCharacters } = require('./rickAndMortyApi');
+const fsPromises = require('fs').promises;
+const { getManyCharacters } = require('./getManyCharacters');
 const mockSingleResponse = require('./api-results-single.json');
+const { default: fetch } = require('node-fetch');
 
 
-it('Takes an array of ids and returns the array of characters', async () => {
+jest.mock('node-fetch');
 
-    fetch.mockResolvedValue({
-        json: () => Promise.resolve(mockSingleResponse)
-    });
+describe('get a character', () => {
+    it('Takes an array of ids and returns the array of characters', async () => {
 
-    const characterArray = await getManyCharacters([2, 4, 6]);
+        fetch.mockResolvedValue({
+            json: () => Promise.resolve(mockSingleResponse)
+        });
 
-    expect(characterArray).toEqual([
-        {
-            name: "Morty Smith",
-            status: "Alive",
-            species: "Human"
-        },
-        {
-            name: "Morty Smith",
-            status: "Alive",
-            species: "Human"
-        },
-        {
-            name: "Morty Smith",
-            status: "Alive",
-            species: "Human"
-        }
-    ])
-})
+        const characterArray = await getManyCharacters([2, 4, 6]);
+
+        expect(characterArray).toEqual([
+            {
+                name: "Morty Smith",
+                status: "Alive",
+                species: "Human"
+            },
+            {
+                name: "Morty Smith",
+                status: "Alive",
+                species: "Human"
+            },
+            {
+                name: "Morty Smith",
+                status: "Alive",
+                species: "Human"
+            }
+        ])
+    })
+});
