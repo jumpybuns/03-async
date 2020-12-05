@@ -1,12 +1,12 @@
 const fetch = require('node-fetch');
+const { getCharacter } = require('./rickAndMortyApi');
 
-const getManyCharacters = (src) => {
-    Promise.all([
-        fetch('https://rickandmortyapi.com/api/character/')
-    ])
-        .then((data => fsPromisies.readFile(src, data)[resRickAndMorty]));
-};
+const getManyCharacters = async (ids) => {
+    const object = await Promise.all(ids.map(id => getCharacter(id)));
+    return object;
+}
 
 module.exports = {
+
     getManyCharacters
 }

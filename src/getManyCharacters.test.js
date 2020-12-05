@@ -1,26 +1,36 @@
+const fsPromises = require('fs').promises;
 const { getManyCharacters } = require('./getManyCharacters');
+const mockSingleResponse = require('./api-results-single.json');
+const { default: fetch } = require('node-fetch');
 
-describe('get many characters', () => {
 
-    it('gets alot of characters', async () => {
-        const characters = await getManyCharacters([1, 3, 5]);
+jest.mock('node-fetch');
 
-        expect(characters).toEqual([
+describe('get a character', () => {
+    it('Takes an array of ids and returns the array of characters', async () => {
+
+        fetch.mockResolvedValue({
+            json: () => Promise.resolve(mockSingleResponse)
+        });
+
+        const characterArray = await getManyCharacters([2, 4, 6]);
+
+        expect(characterArray).toEqual([
             {
-                name: "Rick Sanchez",
+                name: "Morty Smith",
                 status: "Alive",
-                species: "Human",
+                species: "Human"
             },
             {
-                name: "Summer Smith",
+                name: "Morty Smith",
                 status: "Alive",
-                species: "Human",
+                species: "Human"
             },
             {
-                name: "Jerry Smith",
+                name: "Morty Smith",
                 status: "Alive",
-                species: "Human",
+                species: "Human"
             }
         ])
     })
-})
+});
